@@ -1,15 +1,31 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import Map from "./Map";
+import AvatarImage from "./AvatarImage";
+import Menu from "./Menu";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 
 const MapScreen = () => {
   return (
     <View>
       <Map />
 
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>+</Text>
-      </TouchableOpacity>
+      <Menu />
+      <AvatarImage />
+
+      <SafeAreaView
+        style={{
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+        }}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push("/addLocation")}>
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
     </View>
   );
 };
@@ -18,19 +34,20 @@ export default MapScreen;
 
 const styles = StyleSheet.create({
   button: {
-    position: "absolute",
+    position: "relative",
     right: 16,
     bottom: 16,
     width: 52,
     height: 52,
     borderRadius: 28,
-    backgroundColor: "white",
+    backgroundColor: "#14b8a6",
     justifyContent: "center",
     alignItems: "center",
-    elevation: 4,
+    // elevation: 4,
   },
   buttonText: {
-    fontSize: 28,
+    fontSize: 32,
     lineHeight: 28,
+    color: "white",
   },
 });

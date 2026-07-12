@@ -1,13 +1,11 @@
-import Account from "@/components/Account";
 import Auth from "@/components/Auth";
-import Map from "@/components/Map";
 import MapScreen from "@/components/MapScreen";
 import { supabase } from "@/lib/supabase";
 import { useState, useEffect } from "react";
 
 import { View } from "react-native";
 
-export default function App() {
+export default function AppScreen() {
   const [userId, setUserId] = useState<string | null>(null);
   const [email, setEmail] = useState<string | undefined>(undefined);
 
@@ -39,14 +37,5 @@ export default function App() {
     };
   }, []);
 
-  return (
-    <View>
-      {!userId ? (
-        <Auth />
-      ) : (
-        <Account key={userId} userId={userId} email={email} />
-        // <MapScreen />
-      )}
-    </View>
-  );
+  return <View style={{ flex: 1 }}>{!userId ? <Auth /> : <MapScreen />}</View>;
 }

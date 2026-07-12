@@ -3,7 +3,7 @@ import * as Location from "expo-location";
 import { useState } from "react";
 
 import silverMapStyle from "../app/silver-map.json";
-// import darkMapStyle from "../app/dark-map.json";
+import { router } from "expo-router";
 
 const Map = () => {
   const [picked, setPicked] = useState<{
@@ -26,6 +26,7 @@ const Map = () => {
       place?.city || place?.district || place?.region || "Unknown Area";
 
     setPicked({ latitude, longitude, title });
+    router.push("/addLocation");
   };
 
   return (
@@ -33,6 +34,12 @@ const Map = () => {
       <MapView
         provider={PROVIDER_GOOGLE}
         customMapStyle={silverMapStyle}
+        initialRegion={{
+          latitude: 50.266,
+          longitude: 19.025,
+          latitudeDelta: 0.15,
+          longitudeDelta: 0.15,
+        }}
         style={{ width: "100%", height: "100%" }}
         onLongPress={handleLongPress}>
         {picked && (
