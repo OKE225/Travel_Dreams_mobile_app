@@ -1,41 +1,35 @@
 import Auth from "@/components/Auth";
 import MapScreen from "@/components/MapScreen";
 import { supabase } from "@/lib/supabase";
+import { Session } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
 
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
 export default function AppScreen() {
-  const [userId, setUserId] = useState<string | null>(null);
-  const [email, setEmail] = useState<string | undefined>(undefined);
+  const [session, setSession] = useState<Session | null | undefined>(undefined);
 
   useEffect(() => {
-    supabase.auth.getClaims().then(({ data, error }) => {
-      const claims = data?.claims;
-
-      if (claims) {
-        setUserId(claims.sub);
-        setEmail(claims.email);
-      }
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
     });
 
-    const { data: listener } = supabase.auth.onAuthStateChange(async () => {
-      const { data } = await supabase.auth.getClaims();
-      const claims = data?.claims;
-
-      if (claims) {
-        setUserId(claims.sub);
-        setEmail(claims.email);
-      } else {
-        setUserId(null);
-        setEmail(undefined);
-      }
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
     });
 
     return () => {
-      listener.subscription.unsubscribe();
+      data.subscription.unsubscribe();
     };
   }, []);
 
-  return <View style={{ flex: 1 }}>{!userId ? <Auth /> : <MapScreen />}</View>;
+  if (session === undefined) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
+  return <View style={{ flex: 1 }}>{session ? <MapScreen /> : <Auth />}</View>;
 }
