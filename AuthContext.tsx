@@ -11,8 +11,22 @@ type AuthContextType = {
   email: string;
   username: string | null;
   avatarUrl: string | undefined;
+  locations: LocationRow[];
   loading: boolean;
   refetch: () => Promise<void>;
+  refetchLocations: () => Promise<void>;
+};
+
+type LocationRow = {
+  id: string;
+  user_id: string;
+  title: string;
+  description: string | null;
+  latitude: number;
+  longitude: number;
+  image_path: string | null;
+  created_at: string;
+  updated_at: string;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -23,6 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [username, setUsername] = useState<string | null>(null);
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(true);
+  const [locations, setLocations] = useState<LocationRow[]>([]);
 
   const fetchAuthData = async () => {
     setLoading(true);
@@ -33,6 +48,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setEmail("");
       setUsername(null);
       setAvatarUrl(undefined);
+      setLocations([]);
       setLoading(false);
       return;
     }
@@ -40,6 +56,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const claims = claimsData.claims;
     setUserId(claims.sub);
     setEmail(claims.email ?? "");
+
+    await fetchLocations(claims.sub);
 
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
@@ -84,10 +102,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  const fetchLocations = async (uid: string) => {
+    const { data, error } = await supabase
+      .from("locations")
+      .select("*")
+      .eq("user_id", uid)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Error fetchning locations:", error);
+      setLocations([]);
+      return;
+    }
+
+    setLocations(data ?? []);
+  };
+
   useEffect(() => {
     fetchAuthData();
 
-    const { data } = supabase.auth.onAuthStateChange(async () => {
+    const { data } = supabase.auth.onAuthStateChange(async (event) => {
+      if (event === "SIGNED_OUT") {
+        setUserId("");
+        setEmail("");
+        setUsername(null);
+        setAvatarUrl(undefined);
+        setLocations([]);
+        setLoading(false);
+        return;
+      }
+
       await fetchAuthData();
     });
 
@@ -103,8 +147,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         email,
         username,
         avatarUrl,
+        locations,
         loading,
         refetch: fetchAuthData,
+        refetchLocations: async () => {
+          if (userId) await fetchLocations(userId);
+        },
       }}>
       {children}
     </AuthContext.Provider>
