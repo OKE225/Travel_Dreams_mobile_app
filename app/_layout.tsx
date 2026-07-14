@@ -11,14 +11,14 @@ export default function RootLayout() {
         <Stack.Screen name="index" />
         <Stack.Screen
           name="addLocation"
-          options={{
-            presentation: "formSheet",
-            sheetAllowedDetents: [0.125, 0.5],
-            sheetGrabberVisible: true,
-            sheetCornerRadius: 30,
-            headerBackButtonDisplayMode: "minimal",
-            title: "Add new location",
-          }}
+          // options={{
+          //   presentation: "formSheet",
+          //   sheetAllowedDetents: [0.75],
+          //   sheetGrabberVisible: true,
+          //   sheetCornerRadius: 36,
+          //   headerBackButtonDisplayMode: "minimal",
+          //   title: "Add new location",
+          // }}
         />
         <Stack.Screen name="profile" />
       </Stack>

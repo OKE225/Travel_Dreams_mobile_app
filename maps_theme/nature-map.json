@@ -1,0 +1,98 @@
+[
+  {
+    "elementType": "geometry",
+    "stylers": [{ "color": "#C7F9CC" }]
+  },
+  {
+    "elementType": "labels.icon",
+    "stylers": [{ "visibility": "on" }]
+  },
+  {
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#22577A" }]
+  },
+  {
+    "elementType": "labels.text.stroke",
+    "stylers": [{ "color": "#C7F9CC" }]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#57CC99" }]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "geometry",
+    "stylers": [{ "color": "#80ED99" }]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#22577A" }]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "geometry",
+    "stylers": [{ "color": "#57CC99" }]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#38A3A5" }]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [{ "color": "#ffffff" }]
+  },
+  {
+    "featureType": "road.arterial",
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#22577A" }]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [{ "color": "#38A3A5" }]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#22577A" }]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#57CC99" }]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "geometry",
+    "stylers": [{ "color": "#80ED99" }]
+  },
+  {
+    "featureType": "transit.station",
+    "elementType": "geometry",
+    "stylers": [{ "color": "#C7F9CC" }]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [{ "color": "#22577A" }]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#C7F9CC" }]
+  },
+  {
+    "featureType": "administrative.locality",
+    "elementType": "labels.text.fill",
+    "stylers": [{ "color": "#22577A" }]
+  },
+  {
+    "featureType": "administrative.locality",
+    "elementType": "labels.text.stroke",
+    "stylers": [{ "color": "#C7F9CC" }]
+  }
+]
