@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import React from "react";
 import { Callout, Marker } from "react-native-maps";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 const CustomMarker = ({
   latitude,
@@ -18,19 +18,16 @@ const CustomMarker = ({
         latitude: latitude,
         longitude: longitude,
       }}
-      // pinColor="turquoise"
-      // pinColor="#14b8a6"
       title={title}>
       <View
         style={{
           width: 38,
           height: 38,
           borderRadius: 20,
-          backgroundColor: "black",
           alignItems: "center",
           justifyContent: "center",
         }}>
-        <MaterialCommunityIcons name="human-child" size={38} color="white" />
+        <MaterialIcons name="push-pin" size={39} color="#ef4444" />
         <Callout tooltip>
           <Text>{title}</Text>
         </Callout>
