@@ -7,7 +7,7 @@ import silverMapStyle from "../maps_theme/silver-map.json";
 import { router, useLocalSearchParams, usePathname } from "expo-router";
 import CustomMarker from "./CustomMarker";
 
-const Map = ({ stylesCss, children }: any) => {
+const Map = ({ stylesCss, children, onMapPress }: any) => {
   const pathname = usePathname();
   const mapRef = useRef<MapView>(null);
 
@@ -18,11 +18,11 @@ const Map = ({ stylesCss, children }: any) => {
   }>();
 
   useEffect(() => {
-    if (pathname === "/addLocation" && latitude && longitude) {
+    if (latitude && longitude) {
       mapRef.current?.animateToRegion(
         {
-          latitude: Number(latitude),
-          longitude: Number(longitude),
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
           latitudeDelta: 0.025,
           longitudeDelta: 0.025,
         },
@@ -47,14 +47,17 @@ const Map = ({ stylesCss, children }: any) => {
       place?.city || place?.district || place?.region || "Unknown Area";
 
     setPicked({ latitude, longitude, title });
-    router.push({
-      pathname: "/addLocation",
-      params: {
-        latitude: String(latitude),
-        longitude: String(longitude),
-        title,
-      },
-    });
+
+    setTimeout(() => {
+      router.push({
+        pathname: "/addLocation",
+        params: {
+          latitude: String(latitude),
+          longitude: String(longitude),
+          title,
+        },
+      });
+    }, 500);
   };
 
   const handlePress = async (e: any) => {
@@ -67,6 +70,7 @@ const Map = ({ stylesCss, children }: any) => {
       place?.city || place?.district || place?.region || "Unknown Area";
 
     setPicked({ latitude, longitude, title });
+
     router.setParams({
       latitude: String(latitude),
       longitude: String(longitude),
@@ -86,6 +90,7 @@ const Map = ({ stylesCss, children }: any) => {
   const markerData = markerFromParams ?? picked;
   const unFocusMarker = () => {
     setPicked(null);
+    onMapPress();
   };
 
   return (
@@ -93,13 +98,15 @@ const Map = ({ stylesCss, children }: any) => {
       ref={mapRef}
       showsUserLocation
       showsMyLocationButton={false}
+      toolbarEnabled={false}
+      showsCompass={false}
       provider={PROVIDER_GOOGLE}
       customMapStyle={silverMapStyle}
       initialRegion={{
-        latitude: 50.266,
-        longitude: 19.025,
-        latitudeDelta: 0.15,
-        longitudeDelta: 0.15,
+        latitude: 52.06939,
+        longitude: 19.48019,
+        latitudeDelta: 10,
+        longitudeDelta: 10,
       }}
       style={stylesCss}
       onPress={pathname === "/addLocation" ? handlePress : unFocusMarker}
