@@ -7,20 +7,24 @@ export default function RootLayout() {
   return (
     <AuthProvider>
       <StatusBar barStyle="dark-content" hidden />
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{ title: "Home", headerShown: false }}
+        />
         <Stack.Screen
           name="addLocation"
-          // options={{
-          //   presentation: "formSheet",
-          //   sheetAllowedDetents: [0.75],
-          //   sheetGrabberVisible: true,
-          //   sheetCornerRadius: 36,
-          //   headerBackButtonDisplayMode: "minimal",
-          //   title: "Add new location",
-          // }}
+          options={{
+            presentation: "formSheet",
+            sheetAllowedDetents: [0.75],
+            sheetGrabberVisible: true,
+            sheetCornerRadius: 36,
+            headerBackButtonDisplayMode: "minimal",
+            title: "Add New Location",
+          }}
         />
-        <Stack.Screen name="profile" />
+        <Stack.Screen name="profile" options={{ title: "Profile Settings" }} />
+        <Stack.Screen name="list" options={{ title: "My Dream Locations" }} />
       </Stack>
     </AuthProvider>
   );
