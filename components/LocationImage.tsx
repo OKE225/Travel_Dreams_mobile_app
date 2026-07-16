@@ -33,7 +33,7 @@ const LocationImage = ({ path }: { path: string | null }) => {
   return (
     <Image
       source={{ uri }}
-      style={{ width: "100%", height: "100%", borderRadius: 10 }}
+      style={{ width: "100%", height: "100%", borderRadius: 14 }}
     />
   );
 };
