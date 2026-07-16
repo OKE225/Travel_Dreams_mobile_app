@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import Map from "@/components/Map";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import { supabase } from "@/lib/supabase";
 
@@ -84,40 +84,52 @@ const AddLocation = () => {
       if (insertError) throw insertError;
 
       console.log("Inserted location:", insertedLocation);
+      router.replace("/");
     } catch (error) {
       console.log(error);
     }
   };
 
+  const isSubmitDisabled = !latitude && !longitude;
+
   return (
     <View
       style={{
-        alignItems: "center",
-        marginTop: 20,
+        marginTop: 24,
         paddingHorizontal: 12,
       }}>
-      <Text>{title ? title : "Select a place"}</Text>
+      <Text style={{ fontSize: 22, marginBottom: 8 }}>
+        {title ? title : "Select a place"}
+      </Text>
       <View
         style={{
           flexDirection: "row",
-          gap: 12,
+          gap: 8,
+          marginBottom: 10,
         }}>
-        <TextInput
-          style={styles.input}
-          editable={false}
-          value={latitude ?? ""}
-        />
-        <TextInput
-          style={styles.input}
-          editable={false}
-          value={longitude ?? ""}
-        />
+        <View style={styles.inputContainer}>
+          <Text style={{ color: "#3f3f46" }}>latitude</Text>
+          <TextInput
+            style={styles.input}
+            editable={false}
+            value={latitude ?? ""}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={{ color: "#3f3f46" }}>longitude</Text>
+          <TextInput
+            style={styles.input}
+            editable={false}
+            value={longitude ?? ""}
+          />
+        </View>
       </View>
 
       <View
         style={{
           width: "100%",
-          height: "20%",
+          height: "40%",
+          marginBottom: 10,
         }}>
         <Map
           stylesCss={{
@@ -127,52 +139,63 @@ const AddLocation = () => {
         />
       </View>
 
-      <View
-        style={{
-          borderColor: "gray",
-          borderWidth: 1,
-          padding: 5,
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-          height: 150,
-          width: "100%",
-        }}>
-        <TextInput
-          // style={{
-          //   justifyContent: "flex-start",
-          //   alignItems: "flex-start",
-          // }}
-          placeholder="Type something about this place."
-          placeholderTextColor="grey"
-          numberOfLines={5}
-          multiline={true}
-          value={placeDescription}
-          onChangeText={setPlaceDescription}
-        />
-      </View>
+      <View style={{ flexDirection: "row", gap: 4 }}>
+        <View style={{ width: 100, height: 100 }}>
+          <TouchableOpacity onPress={uploadPicture}>
+            {imageUri ? (
+              <Image
+                source={{ uri: imageUri }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: 12,
+                }}
+              />
+            ) : (
+              <View
+                style={{
+                  backgroundColor: "#d4d4d8",
+                  width: "100%",
+                  height: "100%",
+                  justifyContent: "center",
+                  borderRadius: 12,
+                }}>
+                <Text
+                  style={{ textAlign: "center", padding: 6, color: "#3f3f46" }}>
+                  Place the photo here
+                </Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
 
-      <View style={{ width: 150, height: 150 }}>
-        <TouchableOpacity
+        <View
           style={{
-            backgroundColor: "cyan",
-            width: "100%",
-            height: "100%",
-            justifyContent: "center",
-          }}
-          onPress={uploadPicture}>
-          {/* <Text style={{ textAlign: "center" }}>Upload photo</Text> */}
-        </TouchableOpacity>
+            flex: 1,
+            borderColor: "#a1a1aa",
+            borderWidth: 1,
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+            height: 100,
+            borderRadius: 12,
+          }}>
+          <TextInput
+            placeholder="Type something about this place."
+            placeholderTextColor="grey"
+            numberOfLines={4}
+            maxLength={128}
+            multiline={true}
+            value={placeDescription}
+            onChangeText={setPlaceDescription}
+          />
+        </View>
       </View>
 
-      {imageUri && (
-        <Image
-          source={{ uri: imageUri }}
-          style={{ width: 150, height: 150, borderRadius: 16, marginTop: 12 }}
-        />
-      )}
-
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Submit</Text>
+      <TouchableOpacity
+        style={[styles.button, isSubmitDisabled && { opacity: 0.5 }]}
+        onPress={handleSubmit}
+        disabled={isSubmitDisabled}>
+        <Text style={styles.buttonText}>SUBMIT</Text>
       </TouchableOpacity>
     </View>
   );
@@ -181,12 +204,14 @@ const AddLocation = () => {
 export default AddLocation;
 
 const styles = StyleSheet.create({
-  input: {
-    backgroundColor: "silver",
-    color: "black",
+  inputContainer: {
     flex: 1,
+  },
+  input: {
+    backgroundColor: "#e4e4e7",
+    color: "#3f3f46",
     paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingVertical: 4,
     borderRadius: 50,
   },
   button: {
@@ -196,8 +221,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 12,
     paddingVertical: 4,
-    marginTop: 18,
-    // elevation: 4,
+    marginTop: 22,
   },
   buttonText: {
     fontSize: 18,
