@@ -17,7 +17,7 @@ type AuthContextType = {
   refetchLocations: () => Promise<void>;
 };
 
-type LocationRow = {
+export type LocationRow = {
   id: string;
   user_id: string;
   title: string;
