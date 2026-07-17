@@ -8,6 +8,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useAuth } from "@/AuthContext";
 import { Link } from "expo-router";
+import { supabase } from "@/lib/supabase";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +42,7 @@ const Menu = () => {
             backgroundColor: "#e4e4e7",
             // backgroundColor: "#14b8a6",
             paddingTop: 48 + 64,
-            paddingHorizontal: 24,
+            // paddingHorizontal: 24,
             zIndex: 10,
             alignItems: "center",
           }}>
@@ -54,18 +55,32 @@ const Menu = () => {
             }}
             resizeMode="cover"
           />
-          <Text style={{ fontSize: 32 }}>{username}</Text>
-          <Text style={{}}>{email}</Text>
+          {username && <Text style={{ fontSize: 32 }}>{username}</Text>}
+          <Text style={{ color: "#3f3f46" }}>{email}</Text>
 
-          <View style={{ marginTop: 32, alignItems: "center", gap: 12 }}>
-            <Link href="/list" style={styles.btn}>
-              My locations list
-            </Link>
-            <Link href="/profile" style={styles.btn}>
-              Profile settings
-            </Link>
-            <Text>Switch theme (light/dark)</Text>
-            <Text>Logout</Text>
+          <View
+            style={{
+              marginTop: 32,
+              // gap: 10,
+              backgroundColor: "#14b8a6",
+              flex: 1,
+              width: "100%",
+              padding: 24,
+              justifyContent: "space-between",
+            }}>
+            <View style={{ gap: 10 }}>
+              <Link href="/list" style={styles.btn}>
+                My locations list
+              </Link>
+              <Link href="/profile" style={styles.btn}>
+                Profile settings
+              </Link>
+            </View>
+            <TouchableOpacity
+              onPress={() => supabase.auth.signOut()}
+              style={[styles.btn, { backgroundColor: "#dc2626" }]}>
+              <Text style={{ color: "white" }}>Logout</Text>
+            </TouchableOpacity>
           </View>
         </Animated.View>
       )}
@@ -77,14 +92,11 @@ export default Menu;
 
 const styles = StyleSheet.create({
   btn: {
-    fontSize: 18,
-    backgroundColor: "#14b8a6",
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    borderRadius: 20,
+    fontSize: 22,
+    backgroundColor: "#0d9488",
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    borderRadius: 100,
     color: "white",
   },
 });
-
-// - dodać deafult zdjęcie profilowe
-// - sprawdzić jak działa aplikacja gdy nie zaaktualizowałeś zdjęcia i nicku
