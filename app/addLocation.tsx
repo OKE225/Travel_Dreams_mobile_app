@@ -125,20 +125,6 @@ const AddLocation = () => {
         </View>
       </View>
 
-      <View
-        style={{
-          width: "100%",
-          height: "40%",
-          marginBottom: 10,
-        }}>
-        <Map
-          stylesCss={{
-            width: "100%",
-            height: "100%",
-          }}
-        />
-      </View>
-
       <View style={{ flexDirection: "row", gap: 4 }}>
         <View style={{ width: 100, height: 100 }}>
           <TouchableOpacity onPress={uploadPicture}>
@@ -174,21 +160,39 @@ const AddLocation = () => {
             flex: 1,
             borderColor: "#a1a1aa",
             borderWidth: 1,
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
             height: 100,
             borderRadius: 12,
           }}>
           <TextInput
             placeholder="Type something about this place."
             placeholderTextColor="grey"
-            numberOfLines={4}
+            numberOfLines={7}
             maxLength={128}
-            multiline={true}
+            multiline
             value={placeDescription}
             onChangeText={setPlaceDescription}
+            style={{
+              flex: 1,
+              paddingHorizontal: 8,
+              paddingVertical: 4,
+              textAlignVertical: "top",
+            }}
           />
         </View>
+      </View>
+
+      <View
+        style={{
+          width: "100%",
+          height: "40%",
+          marginTop: 10,
+        }}>
+        <Map
+          stylesCss={{
+            width: "100%",
+            height: "100%",
+          }}
+        />
       </View>
 
       <TouchableOpacity
