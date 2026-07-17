@@ -1,20 +1,31 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import Map from "./Map";
 import AvatarImage from "./AvatarImage";
 import Menu from "./Menu";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import LocationListBtn from "./LocationListBtn";
 import { useAuth } from "@/AuthContext";
 import { Marker } from "react-native-maps";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import LocationCardOnMap from "./LocationCardOnMap";
 
 const MapScreen = () => {
-  const { locations } = useAuth();
+  const { locations, refetchLocations } = useAuth();
+  const [selectedLocation, setSelectedLocation] = useState<any | null>(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      refetchLocations();
+    }, [refetchLocations]),
+  );
 
   return (
-    <View>
-      <Map stylesCss={{ width: "100%", height: "100%" }}>
+    <View style={{ flex: 1 }}>
+      <Map
+        stylesCss={{ width: "100%", height: "100%" }}
+        onMapPress={() => setSelectedLocation(null)}>
         {locations.map((location) => (
           <Marker
             key={location.id}
@@ -22,9 +33,26 @@ const MapScreen = () => {
               latitude: location.latitude,
               longitude: location.longitude,
             }}
-          />
+            onPress={() => setSelectedLocation(location)}>
+            <View
+              style={{
+                width: 38,
+                height: 38,
+                justifyContent: "center",
+                alignItems: "center",
+              }}>
+              <MaterialIcons name="location-pin" size={37} color="#14b8a6" />
+            </View>
+          </Marker>
         ))}
       </Map>
+
+      {selectedLocation && (
+        <LocationCardOnMap
+          location={selectedLocation}
+          onClose={() => setSelectedLocation(null)}
+        />
+      )}
 
       <Menu />
       <AvatarImage />
