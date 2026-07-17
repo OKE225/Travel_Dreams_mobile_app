@@ -21,6 +21,7 @@ const AddLocation = () => {
 
   const [placeDescription, setPlaceDescription] = useState<string>("");
   const [imageUri, setImageUri] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const uploadPicture = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -47,6 +48,7 @@ const AddLocation = () => {
 
   const handleSubmit = async () => {
     try {
+      setIsLoading(true);
       let imagePath = null;
 
       if (imageUri) {
@@ -87,6 +89,8 @@ const AddLocation = () => {
       router.replace("/");
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -196,9 +200,12 @@ const AddLocation = () => {
       </View>
 
       <TouchableOpacity
-        style={[styles.button, isSubmitDisabled && { opacity: 0.5 }]}
+        style={[
+          styles.button,
+          isSubmitDisabled && !isLoading && { opacity: 0.5 },
+        ]}
         onPress={handleSubmit}
-        disabled={isSubmitDisabled}>
+        disabled={isSubmitDisabled && !isLoading}>
         <Text style={styles.buttonText}>SUBMIT</Text>
       </TouchableOpacity>
     </View>
