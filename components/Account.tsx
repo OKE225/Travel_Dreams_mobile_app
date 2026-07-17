@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { View, Alert, TextInput, Text, TouchableOpacity } from "react-native";
 import Avatar from "./Avatar";
-import { appStyles } from "../styles/styles";
 
 export default function Account({
   userId,
@@ -14,7 +13,6 @@ export default function Account({
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
-  const styles = appStyles;
 
   useEffect(() => {
     if (userId) getProfile();
@@ -76,7 +74,7 @@ export default function Account({
   }
 
   return (
-    <View style={styles.container}>
+    <View style={{ marginTop: 40, padding: 12 }}>
       <View>
         <Avatar
           size={200}
@@ -87,40 +85,95 @@ export default function Account({
           }}
         />
       </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Text style={styles.label}>Email</Text>
+      <View
+        style={{
+          paddingTop: 4,
+          paddingBottom: 4,
+          alignSelf: "stretch",
+          marginTop: 20,
+        }}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "600",
+            color: "#86939e",
+            marginBottom: 6,
+          }}>
+          Email
+        </Text>
         <TextInput
           value={email ?? ""}
           editable={false}
           selectTextOnFocus={false}
-          style={[styles.input, styles.inputDisabled]}
+          style={{
+            borderWidth: 1,
+            borderRadius: 50,
+            padding: 12,
+            fontSize: 16,
+            backgroundColor: "#f2f2f2",
+            borderColor: "#d1d1d1",
+            color: "#9e9e9e",
+          }}
         />
       </View>
-      <View style={styles.verticallySpaced}>
-        <Text style={styles.label}>Username</Text>
+      <View style={{ paddingTop: 4, paddingBottom: 4, alignSelf: "stretch" }}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "600",
+            color: "#86939e",
+            marginBottom: 6,
+          }}>
+          Username
+        </Text>
         <TextInput
           value={username || ""}
           onChangeText={(text) => setUsername(text)}
-          style={styles.input}
+          style={{
+            borderWidth: 1,
+            borderColor: "#86939e",
+            borderRadius: 50,
+            padding: 12,
+            fontSize: 16,
+          }}
         />
       </View>
 
-      <View style={[styles.verticallySpaced, styles.mt20]}>
+      <View
+        style={{
+          paddingTop: 4,
+          paddingBottom: 4,
+          alignSelf: "stretch",
+          marginTop: 20,
+        }}>
         <TouchableOpacity
-          style={[styles.button, loading && styles.buttonDisabled]}
+          style={{
+            backgroundColor: "#14b8a6",
+            borderRadius: 50,
+            padding: 12,
+            alignItems: "center",
+            opacity: loading ? 0.5 : 1,
+          }}
           onPress={() => updateProfile({ username, avatar_url: avatarUrl })}
           disabled={loading}>
-          <Text style={styles.buttonText}>
+          <Text style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}>
             {loading ? "Loading ..." : "Update"}
           </Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.verticallySpaced}>
+      <View style={{ paddingTop: 4, paddingBottom: 4, alignSelf: "stretch" }}>
         <TouchableOpacity
-          style={styles.button}
+          style={{
+            backgroundColor: "#14b8a6",
+            borderRadius: 50,
+            padding: 12,
+            alignItems: "center",
+          }}
           onPress={() => supabase.auth.signOut()}>
-          <Text style={styles.buttonText}>Sign Out</Text>
+          <Text style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}>
+            Sign Out
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

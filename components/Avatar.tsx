@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { View, Alert, Image, Text, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { appStyles } from "../styles/styles";
 
 interface Props {
   size: number;
@@ -14,7 +13,6 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
   const [uploading, setUploading] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const avatarSize = { height: size, width: size };
-  const styles = appStyles;
 
   useEffect(() => {
     if (url) downloadImage(url);
@@ -94,22 +92,53 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
   }
 
   return (
-    <View style={styles.avatarContainer}>
+    <View
+      style={{ alignItems: "center", justifyContent: "center", marginTop: 20 }}>
       {avatarUrl ? (
         <Image
           source={{ uri: avatarUrl }}
           accessibilityLabel="Avatar"
-          style={[avatarSize, styles.avatar, styles.image]}
+          style={[
+            avatarSize,
+            {
+              borderRadius: 100,
+              overflow: "hidden",
+              maxWidth: "100%",
+              marginBottom: 20,
+              objectFit: "cover",
+              paddingTop: 0,
+            },
+          ]}
         />
       ) : (
-        <View style={[avatarSize, styles.avatar, styles.noImage]} />
+        <View
+          style={[
+            avatarSize,
+            {
+              borderRadius: 100,
+              overflow: "hidden",
+              maxWidth: "100%",
+              marginBottom: 20,
+              backgroundColor: "#333",
+              borderWidth: 1,
+              borderStyle: "solid",
+              borderColor: "rgb(200, 200, 200)",
+            },
+          ]}
+        />
       )}
       <View>
         <TouchableOpacity
-          style={[styles.button, uploading && styles.buttonDisabled]}
+          style={{
+            backgroundColor: "#14b8a6",
+            borderRadius: 40,
+            padding: 12,
+            alignItems: "center",
+            opacity: uploading ? 0.5 : 1,
+          }}
           onPress={uploadAvatar}
           disabled={uploading}>
-          <Text style={styles.buttonText}>
+          <Text style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}>
             {uploading ? "Uploading ..." : "Upload"}
           </Text>
         </TouchableOpacity>

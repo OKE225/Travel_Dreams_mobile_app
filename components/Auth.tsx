@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { supabase } from "../lib/supabase";
-import { appStyles } from "../styles/styles";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const styles = appStyles;
 
   async function signInWithEmail() {
     setLoading(true);
@@ -32,42 +30,98 @@ export default function Auth() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Text style={styles.label}>Email</Text>
+    <View style={{ marginTop: 40, padding: 12 }}>
+      <View
+        style={{
+          paddingTop: 4,
+          paddingBottom: 4,
+          alignSelf: "stretch",
+          marginTop: 20,
+        }}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "600",
+            color: "#86939e",
+            marginBottom: 6,
+          }}>
+          Email
+        </Text>
         <TextInput
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
           autoCapitalize="none"
-          style={styles.input}
+          style={{
+            borderWidth: 1,
+            borderColor: "#86939e",
+            borderRadius: 40,
+            padding: 12,
+            fontSize: 16,
+          }}
         />
       </View>
-      <View style={styles.verticallySpaced}>
-        <Text style={styles.label}>Password</Text>
+      <View style={{ paddingTop: 4, paddingBottom: 4, alignSelf: "stretch" }}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "600",
+            color: "#86939e",
+            marginBottom: 6,
+          }}>
+          Password
+        </Text>
         <TextInput
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
           placeholder="Password"
           autoCapitalize="none"
-          style={styles.input}
+          style={{
+            borderWidth: 1,
+            borderColor: "#86939e",
+            borderRadius: 40,
+            padding: 12,
+            fontSize: 16,
+          }}
         />
       </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
+      <View
+        style={{
+          paddingTop: 4,
+          paddingBottom: 4,
+          alignSelf: "stretch",
+          marginTop: 20,
+        }}>
         <TouchableOpacity
-          style={[styles.button, loading && styles.buttonDisabled]}
+          style={{
+            backgroundColor: "#14b8a6",
+            borderRadius: 40,
+            padding: 12,
+            alignItems: "center",
+            opacity: loading ? 0.5 : 1,
+          }}
           onPress={() => signInWithEmail()}
           disabled={loading}>
-          <Text style={styles.buttonText}>Sign in</Text>
+          <Text style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}>
+            Log in
+          </Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.verticallySpaced}>
+      <View style={{ paddingTop: 4, paddingBottom: 4, alignSelf: "stretch" }}>
         <TouchableOpacity
-          style={[styles.button, loading && styles.buttonDisabled]}
+          style={{
+            backgroundColor: "#14b8a6",
+            borderRadius: 40,
+            padding: 12,
+            alignItems: "center",
+            opacity: loading ? 0.5 : 1,
+          }}
           onPress={() => signUpWithEmail()}
           disabled={loading}>
-          <Text style={styles.buttonText}>Sign up</Text>
+          <Text style={{ color: "#fff", fontSize: 16, fontWeight: "600" }}>
+            Create new account
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
