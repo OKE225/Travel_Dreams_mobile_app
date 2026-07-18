@@ -1,5 +1,5 @@
 import Auth from "@/components/Auth";
-import MapScreen from "@/components/MapScreen";
+import HomeScreen from "@/components/HomeScreen";
 import { supabase } from "@/lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
@@ -31,5 +31,7 @@ export default function AppScreen() {
     );
   }
 
-  return <View style={{ flex: 1 }}>{session ? <MapScreen /> : <Auth />}</View>;
+  return (
+    <View style={{ flex: 1 }}>{!session ? <Auth /> : <HomeScreen />}</View>
+  );
 }

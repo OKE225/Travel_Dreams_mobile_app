@@ -11,7 +11,7 @@ import { Marker } from "react-native-maps";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import LocationCardOnMap from "./LocationCardOnMap";
 
-const MapScreen = () => {
+const HomeScreen = () => {
   const { locations, refetchLocations } = useAuth();
   const [selectedLocation, setSelectedLocation] = useState<any | null>(null);
 
@@ -84,7 +84,7 @@ const MapScreen = () => {
   );
 };
 
-export default MapScreen;
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   button: {
