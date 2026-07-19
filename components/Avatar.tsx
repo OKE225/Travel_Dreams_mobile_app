@@ -33,8 +33,12 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
       fr.onload = () => {
         setAvatarUrl(fr.result as string);
       };
-    } catch (error: any) {
-      console.log("Error downloading image: ", error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log("Error downloading image: ", error.message);
+      } else {
+        console.log("Error downloading image: ", error);
+      }
     }
   }
 
@@ -80,11 +84,12 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
       }
 
       onUpload(data.path);
-    } catch (error: any) {
-      if (error) {
+    } catch (error) {
+      if (error instanceof Error) {
         Alert.alert(error.message);
       } else {
-        throw error;
+        console.log(error);
+        Alert.alert("Unexpected error");
       }
     } finally {
       setUploading(false);

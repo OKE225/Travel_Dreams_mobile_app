@@ -1,4 +1,8 @@
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, {
+  LongPressEvent,
+  MapPressEvent,
+  PROVIDER_GOOGLE,
+} from "react-native-maps";
 import * as Location from "expo-location";
 import { useEffect, useRef, useState } from "react";
 
@@ -6,8 +10,15 @@ import silverMapStyle from "../maps_theme/silver-map.json";
 
 import { router, useLocalSearchParams, usePathname } from "expo-router";
 import CustomMarker from "./CustomMarker";
+import { StyleProp, ViewStyle } from "react-native";
 
-const Map = ({ stylesCss, children, onMapPress }: any) => {
+interface MapProps {
+  stylesCss: StyleProp<ViewStyle>;
+  onMapPress?: () => void;
+  children?: React.ReactNode;
+}
+
+const Map = ({ stylesCss, children, onMapPress }: MapProps) => {
   const pathname = usePathname();
   const mapRef = useRef<MapView>(null);
 
@@ -37,7 +48,7 @@ const Map = ({ stylesCss, children, onMapPress }: any) => {
     title: string;
   } | null>(null);
 
-  const handleLongPress = async (e: any) => {
+  const handleLongPress = async (e: LongPressEvent) => {
     const { latitude, longitude } = e.nativeEvent.coordinate;
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") return;
@@ -60,7 +71,7 @@ const Map = ({ stylesCss, children, onMapPress }: any) => {
     }, 500);
   };
 
-  const handlePress = async (e: any) => {
+  const handlePress = async (e: MapPressEvent) => {
     const { latitude, longitude } = e.nativeEvent.coordinate;
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") return;
@@ -90,7 +101,7 @@ const Map = ({ stylesCss, children, onMapPress }: any) => {
   const markerData = markerFromParams ?? picked;
   const unFocusMarker = () => {
     setPicked(null);
-    onMapPress();
+    onMapPress?.();
   };
 
   return (

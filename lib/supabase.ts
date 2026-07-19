@@ -7,7 +7,7 @@ const supabasePublishableKey =
 
 export const supabase = createClient(supabaseUrl, supabasePublishableKey, {
   auth: {
-    storage: AsyncStorage as any,
+    storage: AsyncStorage,
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: false,

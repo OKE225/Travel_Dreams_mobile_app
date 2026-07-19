@@ -6,14 +6,16 @@ import Menu from "./Menu";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useFocusEffect } from "expo-router";
 import LocationListBtn from "./LocationListBtn";
-import { useAuth } from "@/AuthContext";
+import { LocationRow, useAuth } from "@/AuthContext";
 import { Marker } from "react-native-maps";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import LocationCardOnMap from "./LocationCardOnMap";
 
 const HomeScreen = () => {
   const { locations, refetchLocations } = useAuth();
-  const [selectedLocation, setSelectedLocation] = useState<any | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<LocationRow | null>(
+    null,
+  );
 
   useFocusEffect(
     useCallback(() => {

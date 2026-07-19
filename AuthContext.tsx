@@ -97,8 +97,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       fr.onload = () => {
         setAvatarUrl(fr.result as string);
       };
-    } catch (error: any) {
-      console.log("Error downloading image: ", error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log("Error downloading image: ", error.message);
+      } else {
+        console.log("Error downloading image: ", error);
+      }
     }
   }
 

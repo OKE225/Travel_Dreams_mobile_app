@@ -4,9 +4,13 @@ import LocationImage from "./LocationImage";
 import { router } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { supabase } from "@/lib/supabase";
-import { useAuth } from "@/AuthContext";
+import { LocationRow, useAuth } from "@/AuthContext";
 
-const ListItem = ({ item }: { item: any }) => {
+interface ListItemProps {
+  item: LocationRow;
+}
+
+const ListItem = ({ item }: ListItemProps) => {
   const { refetchLocations } = useAuth();
 
   const handlePress = () => {

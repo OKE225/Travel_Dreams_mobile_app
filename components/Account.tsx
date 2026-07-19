@@ -66,8 +66,13 @@ export default function Account({
       if (error) {
         throw error;
       }
-    } catch (error: any) {
-      Alert.alert(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        Alert.alert(error.message);
+      } else {
+        console.log(error);
+        Alert.alert("Unexpected error");
+      }
     } finally {
       setLoading(false);
     }
