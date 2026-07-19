@@ -124,13 +124,15 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
               overflow: "hidden",
               maxWidth: "100%",
               marginBottom: 20,
-              backgroundColor: "#333",
-              borderWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(200, 200, 200)",
+              backgroundColor: "#d4d4d8",
+              justifyContent: "center",
+              alignItems: "center",
             },
-          ]}
-        />
+          ]}>
+          <Text style={{ fontSize: 132, fontWeight: 900, color: "#3f3f46" }}>
+            ?
+          </Text>
+        </View>
       )}
       <View>
         <TouchableOpacity
