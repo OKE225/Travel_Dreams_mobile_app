@@ -11,7 +11,6 @@ const LocationListBtn = () => {
         borderRadius: 28,
         paddingHorizontal: 18,
         height: 52,
-        // bottom: 16,
         justifyContent: "center",
       }}
       onPress={() => router.push("/list")}>

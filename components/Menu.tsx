@@ -40,9 +40,7 @@ const Menu = () => {
             width: "100%",
             height: "100%",
             backgroundColor: "#e4e4e7",
-            // backgroundColor: "#14b8a6",
             paddingTop: 48 + 64,
-            // paddingHorizontal: 24,
             zIndex: 10,
             alignItems: "center",
           }}>
@@ -61,7 +59,6 @@ const Menu = () => {
           <View
             style={{
               marginTop: 32,
-              // gap: 10,
               backgroundColor: "#14b8a6",
               flex: 1,
               width: "100%",
