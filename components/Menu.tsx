@@ -44,15 +44,31 @@ const Menu = () => {
             zIndex: 10,
             alignItems: "center",
           }}>
-          <Image
-            source={{ uri: avatarUrl }}
-            style={{
-              height: 128,
-              width: 128,
-              borderRadius: 100,
-            }}
-            resizeMode="cover"
-          />
+          {!avatarUrl ? (
+            <View
+              style={{
+                backgroundColor: "#d4d4d8",
+                height: 128,
+                width: 128,
+                borderRadius: 200,
+                justifyContent: "center",
+                alignItems: "center",
+              }}>
+              <Text style={{ fontSize: 82, fontWeight: 900, color: "#3f3f46" }}>
+                ?
+              </Text>
+            </View>
+          ) : (
+            <Image
+              source={{ uri: avatarUrl }}
+              style={{
+                height: 128,
+                width: 128,
+                borderRadius: 100,
+              }}
+              resizeMode="cover"
+            />
+          )}
           {username && <Text style={{ fontSize: 32 }}>{username}</Text>}
           <Text style={{ color: "#3f3f46" }}>{email}</Text>
 
