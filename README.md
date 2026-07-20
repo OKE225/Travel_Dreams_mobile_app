@@ -1,8 +1,35 @@
-# Welcome to your Expo app 👋
+# 📌 Travel Dreams
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project is a mobile travel dreams location app built with React Native and Supabase with PostgreSQL and tested on Android. It’s designed for people who like to travel and want a simple way to keep all their dream places in one place, so they can quickly remember what they want to visit in a city or region
 
-## Get started
+After creating an account and logging in with email and password, users can set a nickname and avatar and then work with map view, which shows their current location and all spots they’ve saved with custom markers. By long‑pressing on the map, they can add a new place with coordinates, a photo and a short note. You can tap a marker to see a small card with details. There is also a list view of all saved locations and remove places they no longer need, so over time the app becomes a personal map of places to see, remember and revisit on future trips
+
+<video controls width="20%">
+  <source src="./assets/travel_dreams_video.mp4" type="video/mp4" />
+</video>
+
+## ⚙️ Technologies
+
+[![app tech stack](https://skillicons.dev/icons?i=react,ts,js,supabase,postgresql,css,androidstudio)](https://skillicons.dev)
+
+## ⭐ Features
+
+- **Log in and sign up with** email and password
+- User **data stored secure** in the database
+- Set your own nickname and avatar
+- The map is the main element of the app
+- **Shows all places you have saved**, each with a custom marker
+- Shows your current location on the map
+- **Long‑press on the map to add a new location**
+- For each new location you can save
+  - Coordinates (latitude & longitude)
+  - One photo
+  - A short description
+- **Tap a marker to open a bottom card** with details about that place (title, photo, description)
+- **See a list of all saved locations** with their details
+- Delete locations
+
+## 🚦 Get Started
 
 1. Install dependencies
 
@@ -16,35 +43,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## 🔎 See Also
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [My Website](https://pj-portfolio-cv.vercel.app)
+- [My GitHub profile](https://github.com/OKE225)
